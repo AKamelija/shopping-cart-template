@@ -1,18 +1,38 @@
 <template>
   <div id="nav">
-    <router-link to="/">Home</router-link> |
-    <router-link to="/about">About</router-link>
+    <router-link :class="{ active: $route.name === 'List' }" to="/"
+      >List</router-link
+    >
+    |
+    <router-link
+      :class="{ active: $route.name === 'Inventory' }"
+      to="/inventory"
+      >Inventory({{ stock }})</router-link
+    >
   </div>
-  <router-view/>
+  <router-view />
 </template>
+
+<script>
+export default {
+  computed: {
+    stock() {
+      return this.$store.getters.inventoryQuantity;
+    },
+  },
+};
+</script>
 
 <style lang="scss">
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
+  font-family: Avenir, Helvetica, Arial, sans-serif, "Roboto";
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
+  margin: 0;
+  padding: 0;
+  font-size: 62.5%;
 }
 
 #nav {
@@ -21,9 +41,10 @@
   a {
     font-weight: bold;
     color: #2c3e50;
+    font-size: 1.2rem;
 
-    &.router-link-exact-active {
-      color: #42b983;
+    &.active {
+      color: #b94287;
     }
   }
 }
